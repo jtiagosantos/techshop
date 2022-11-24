@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import {
   Flex,
   Heading,
@@ -16,6 +16,8 @@ import {
   Divider,
 } from '@chakra-ui/react';
 import { ShoppingCartSimple, Code } from 'phosphor-react';
+
+import { PaymentCheckoutService } from '@/modules/product/services/payment-checkout.service';
 
 import { formatPrice } from '@/common/utils/format-price.util';
 
@@ -42,6 +44,22 @@ export default function Home() {
       description: 'Iphone S6 seminovo',
       image: 'https://guide-images.cdn.ifixit.com/igi/o4OjCNmNeOhvsS1P.large',
       price: 1500,
+    },
+    {
+      id: 3,
+      name: 'Teclado mecânico gamer',
+      description: 'Teclado mecânico gamer com luzes rgb',
+      image:
+        'https://nomadaware.com.ec/wp-content/uploads/2021/06/K568_HQ_4.png',
+      price: 189.99,
+    },
+    {
+      id: 4,
+      name: 'Mouse gamer',
+      description: 'Mouse gamer rbg, 8000 dpi, 8 botões',
+      image:
+        'https://img.terabyteshop.com.br/produto/g/mouse-gamer-t-dagger-camaro-rgb-8000-dpi-8-botoes-black-t-tgm306_94318.png',
+      price: 270,
     },
   ]);
   const [cartProducts, setCartProducts] = useState<TCartProduct[]>([]);
@@ -102,6 +120,10 @@ export default function Home() {
     );
 
     setCartProducts(newCartProducts);
+  };
+
+  const handlePaymentCheckout = () => {
+    PaymentCheckoutService.execute(cartProducts);
   };
 
   return (
@@ -167,9 +189,8 @@ export default function Home() {
           <DrawerBody>
             {cartProducts.length ? (
               cartProducts.map(({ product, quantity }) => (
-                <>
+                <Fragment key={product.id}>
                   <CartProduct
-                    key={product.description}
                     product={{
                       id: product.id,
                       name: product.name,
@@ -185,7 +206,7 @@ export default function Home() {
                     onRemoveProduct={() => handleRemoveProductFromCart(product)}
                   />
                   <Divider my={4} />
-                </>
+                </Fragment>
               ))
             ) : (
               <Text textAlign="center" mt="64px">
@@ -213,7 +234,8 @@ export default function Home() {
                   color="white"
                   fontWeight="normal"
                   _hover={{ opacity: 0.8 }}
-                  _active={{ bg: 'purple.700' }}>
+                  _active={{ bg: 'purple.700' }}
+                  onClick={handlePaymentCheckout}>
                   Finalizar pedido
                 </Button>
               </Flex>
