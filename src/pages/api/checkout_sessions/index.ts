@@ -21,18 +21,22 @@ export default async function handler(
   try {
     const products = body.products as Array<TCartProduct>;
 
-    const lineItems = products.map(({ product, quantity }) => ({
-      price_data: {
-        currency: 'BRL',
-        unit_amount: formatAmountForStripe(product.price, 'BRL'),
-        product_data: {
-          name: product.name,
-          description: product.description,
-          images: [product.image],
+    const lineItems = products.map(({ product, quantity }) => {
+      const formattedPrice = formatAmountForStripe(product.price, 'BRL');
+
+      return {
+        price_data: {
+          currency: 'BRL',
+          unit_amount: formattedPrice,
+          product_data: {
+            name: product.name,
+            description: product.description,
+            images: [product.image],
+          },
         },
-      },
-      quantity,
-    }));
+        quantity,
+      };
+    });
 
     const params = {
       mode: 'payment',
