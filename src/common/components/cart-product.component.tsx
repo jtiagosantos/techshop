@@ -12,7 +12,7 @@ import { Minus, Plus, Trash } from 'phosphor-react';
 
 import { formatPrice } from '@/common/utils/format-price.util';
 
-import { TCartProduct } from '@/common/types/cart-product.types';
+import { TCartProduct } from '@/common/types/cart-product.type';
 
 type TCartProductProps = TCartProduct & {
   onIncrementProduct: () => void;
@@ -36,7 +36,7 @@ export const CartProduct: FC<TCartProductProps> = ({
           src={image}
           alt={name}
           boxSize="100px"
-          objectFit="cover"
+          objectFit="contain"
           borderRadius="5px"
         />
         <Box>

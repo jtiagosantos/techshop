@@ -14,7 +14,7 @@ import {
 
 import { formatPrice } from '@/common/utils/format-price.util';
 
-import { TProduct } from '@/common/types/product.types';
+import { TProduct } from '@/modules/product/types/product.type';
 
 type TProductProps = Omit<TProduct, 'id'> & {
   onAddToCart: () => void;
@@ -31,7 +31,7 @@ export const Product: FC<TProductProps> = ({
     <Card maxW="250px" bg="white">
       <CardBody p={3} mb="-10px">
         <Box w="226px" h="226px">
-          <Image src={image} alt={name} w="full" h="full" objectFit="cover" />
+          <Image src={image} alt={name} w="full" h="full" objectFit="contain" />
         </Box>
         <Divider />
         <Stack mt={2}>
