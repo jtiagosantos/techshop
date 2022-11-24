@@ -5,7 +5,7 @@ import { stripe } from '@/common/lib/stripe/stripe';
 
 import { formatAmountForStripe } from '@/common/utils/stripe-utils/format-amount-for-stripe.util';
 
-import { TCartProduct } from '@/common/types/cart-product.types';
+import { TCartProduct } from '@/common/types/cart-product.type';
 
 export default async function handler(
   request: NextApiRequest,
