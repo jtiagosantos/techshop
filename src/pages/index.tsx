@@ -1,4 +1,5 @@
 import { useState, Fragment } from 'react';
+import { GetStaticProps } from 'next';
 import {
   Flex,
   Heading,
@@ -18,50 +19,22 @@ import {
 import { ShoppingCartSimple, Code } from 'phosphor-react';
 
 import { PaymentCheckoutService } from '@/modules/product/services/payment-checkout.service';
+import { FindManyProductsService } from '@/modules/product/services/find-many-products.service';
 
 import { formatPrice } from '@/common/utils/format-price.util';
 
 import { Product, CartProduct } from '@/common/components';
 
-import { TProduct } from '@/common/types/product.types';
-import { TCartProduct } from '@/common/types/cart-product.types';
+import { TProduct } from '@/modules/product/types/product.type';
+import { TCartProduct } from '@/common/types/cart-product.type';
 
-export default function Home() {
+type THomeServerProps = {
+  products: TProduct[];
+};
+
+export default function Home({ products }: THomeServerProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [products, setProducts] = useState<TProduct[]>([
-    {
-      id: 1,
-      name: 'Controle de PS4',
-      description: 'Controle branco e sem fio para PS4',
-      price: 340,
-      image:
-        'https://i0.wp.com/shoplagaming.co.uk/wp-content/uploads/Dualshock-4-Wireless-PS4-Controller-White.png?fit=700%2C700&ssl=1',
-    },
-    {
-      id: 2,
-      name: 'Iphone S6',
-      description: 'Iphone S6 seminovo',
-      image: 'https://guide-images.cdn.ifixit.com/igi/o4OjCNmNeOhvsS1P.large',
-      price: 1500,
-    },
-    {
-      id: 3,
-      name: 'Teclado mecânico gamer',
-      description: 'Teclado mecânico gamer com luzes rgb',
-      image:
-        'https://nomadaware.com.ec/wp-content/uploads/2021/06/K568_HQ_4.png',
-      price: 189.99,
-    },
-    {
-      id: 4,
-      name: 'Mouse gamer',
-      description: 'Mouse gamer rbg, 8000 dpi, 8 botões',
-      image:
-        'https://img.terabyteshop.com.br/produto/g/mouse-gamer-t-dagger-camaro-rgb-8000-dpi-8-botoes-black-t-tgm306_94318.png',
-      price: 270,
-    },
-  ]);
   const [cartProducts, setCartProducts] = useState<TCartProduct[]>([]);
 
   const totalQuantityCartProducts = cartProducts.reduce((acc, { quantity }) => {
@@ -246,3 +219,14 @@ export default function Home() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const products = await FindManyProductsService.execute();
+
+  return {
+    props: {
+      products,
+    },
+    revalidate: 60 * 60 * 24, //24 hours
+  };
+};
