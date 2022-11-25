@@ -42,8 +42,8 @@ export default async function handler(
       mode: 'payment',
       payment_method_types: ['card', 'boleto'],
       line_items: lineItems,
-      success_url: `${headers.origin}?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${headers.origin}?checkout=cancel`,
+      success_url: `${headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${headers.origin}`,
     };
 
     const checkoutSession = await stripe.checkout.sessions.create(
