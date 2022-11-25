@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import Stripe from 'stripe';
-import { stripe } from '@/common/lib/stripe/stripe';
+import { stripe } from '@/common/lib/stripe';
 
 import { formatAmountForStripe } from '@/common/utils/stripe-utils/format-amount-for-stripe.util';
 

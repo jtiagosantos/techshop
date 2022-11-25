@@ -1,4 +1,4 @@
-import { stripe } from '@/common/lib/stripe/stripe';
+import { stripe } from '@/common/lib/stripe';
 
 import { formatAmountFromStripe } from '@/common/utils/stripe-utils/format-amount-from-stripe.util';
 
