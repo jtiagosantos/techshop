@@ -14,7 +14,7 @@ import {
 
 import { formatPrice } from '@/common/utils/format-price.util';
 
-import { TProduct } from '@/modules/product/types/product.type';
+import type { TProduct } from '@/modules/product/types/product.type';
 
 type TProductProps = Omit<TProduct, 'id'> & {
   onAddToCart: () => void;

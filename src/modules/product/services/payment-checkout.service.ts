@@ -1,7 +1,7 @@
 import { api } from '@/common/lib/axios/api';
 import { getStripe } from '@/common/lib/stripe-js/get-stripe';
 
-import { IPaymentCheckout } from '../interfaces/payment-checkout.interface';
+import type { IPaymentCheckout } from '../interfaces/payment-checkout.interface';
 
 export class PaymentCheckoutService {
   public static async execute(data: IPaymentCheckout) {

@@ -2,7 +2,7 @@ import { stripe } from '@/common/lib/stripe';
 
 import { formatAmountFromStripe } from '@/common/utils/stripe-utils/format-amount-from-stripe.util';
 
-import { TProduct } from '../types/product.type';
+import type { TProduct } from '../types/product.type';
 
 export class FindManyProductsService {
   public static async execute(): Promise<Array<TProduct>> {
